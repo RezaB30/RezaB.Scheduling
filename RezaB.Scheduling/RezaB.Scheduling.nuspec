@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>RezaB.Scheduling</title>
+    <authors>Reza Barzegaran</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>A library for scheduled running tasks.</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Scheduling Scheduler</tags>
+	<repository type="git" url="https://github.com/masteriss/RezaB.Scheduling" branch="master" />
+  </metadata>
+</package>
