@@ -30,21 +30,21 @@ namespace RezaB.Scheduling.TestUnit
         {
             return new List<SchedulerOperation>()
             {
-                new SchedulerOperation("ChangeState", new TestTask(10), new StartParameters.SchedulerWorkingTimeSpan(new TimeSpan(15,35,0), TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1))), StartParameters.SchedulingType.OnceADay, 1, new []
+                new SchedulerOperation("ChangeState", new TestTask(2), new StartParameters.SchedulerTimingOptions(new StartParameters.SchedulerWorkingTimeSpan(new TimeSpan(15,35,0), TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1))), new StartParameters.SchedulerIntervalTimeSpan(TimeSpan.FromMinutes(2))), 1, new []
                 {
-                    new SchedulerTask("ChangeTariff", new TestTask(4), 2, new [] 
+                    new SchedulerTask("ChangeTariff", new TestTask(3), 2, new [] 
                     {
-                        new SchedulerTask("IssueBills",new TestTask(10), 2, new[]
+                        new SchedulerTask("IssueBills",new TestTask(6), 2, new[]
                         {
-                            new SchedulerTask("IssueEBills", new TestTask(20), 4),
-                            new SchedulerTask("AutoPayments", new TestTask(10), 3, new []
+                            new SchedulerTask("IssueEBills", new TestTask(10), 4),
+                            new SchedulerTask("AutoPayments", new TestTask(7), 3, new []
                             {
                                 new SchedulerTask("CreateSMSes", new TestTask(3), 2)
                             })
                         })
                     }),
                 }),
-                new SchedulerOperation("SendSMS", new TestTask(12), new StartParameters.SchedulerWorkingTimeSpan(TimeSpan.FromSeconds(1), TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1))), StartParameters.SchedulingType.OnceADay, 1)
+                new SchedulerOperation("SendSMS", new TestTask(12), new StartParameters.SchedulerTimingOptions(new StartParameters.SchedulerWorkingTimeSpan(TimeSpan.FromSeconds(1), TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1)))), 1)
             };
         }
     }

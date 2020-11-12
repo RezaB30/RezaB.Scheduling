@@ -8,16 +8,30 @@ using System.Threading;
 
 namespace RezaB.Scheduling
 {
+    /// <summary>
+    /// A scheduler to run tasks on.
+    /// </summary>
     public class Scheduler : IRezaBScheduler
     {
+        /// <summary>
+        /// The time between each check to see any operation is ready to run.
+        /// </summary>
         public TimeSpan CheckIntervals { get; private set; }
-
+        /// <summary>
+        /// The name of the scheduler.
+        /// </summary>
         public string Name { get; private set; }
-
+        /// <summary>
+        /// Shows if the scheduler is running or not.
+        /// </summary>
         public bool IsRunning { get { return _isRunning; } protected set { _isRunning = value; } }
-
+        /// <summary>
+        /// A list of operations to run on this scheduler.
+        /// </summary>
         public IEnumerable<SchedulerOperation> Operations { get; private set; }
-
+        /// <summary>
+        /// Gets the structure of operations and tasks that run on this scheduler.
+        /// </summary>
         public string TaskStructure
         {
             get
@@ -30,7 +44,12 @@ namespace RezaB.Scheduling
         private static Logger internalLogger = null;
         private Thread mainSchedulerThread = null;
         private string _taskStructure = null;
-
+        /// <summary>
+        /// Creates a scheduler with operations to run.
+        /// </summary>
+        /// <param name="operations">A list of operations to run on this scheduler.</param>
+        /// <param name="checkIntervals">The time between each check to see any operation is ready to run.</param>
+        /// <param name="name">The name of the scheduler.</param>
         public Scheduler(IEnumerable<SchedulerOperation> operations, TimeSpan checkIntervals, string name)
         {
             if (checkIntervals == null || checkIntervals.Days > 0)
@@ -44,7 +63,10 @@ namespace RezaB.Scheduling
             CheckIntervals = checkIntervals;
             Name = name;
         }
-
+        /// <summary>
+        /// Starts the scheduler.
+        /// </summary>
+        /// <param name="loggerName">The logger name. (default is the same as the name of the scheduler.)</param>
         public void Start(string loggerName = null)
         {
             SetLogger(loggerName);
@@ -55,7 +77,9 @@ namespace RezaB.Scheduling
             // start main thread
             mainSchedulerThread.Start();
         }
-
+        /// <summary>
+        /// Stops the scheduler by signaling abort to all tasks.
+        /// </summary>
         public void Stop()
         {
             IsRunning = false;
@@ -65,7 +89,9 @@ namespace RezaB.Scheduling
             }
             mainSchedulerThread.Join();
         }
-
+        /// <summary>
+        /// The main thread that checks on intervals.
+        /// </summary>
         private void schedulerMain()
         {
             internalLogger.Info("Scheduler started.");
@@ -106,7 +132,10 @@ namespace RezaB.Scheduling
             }
 
         }
-
+        /// <summary>
+        /// Sets the internal logger.
+        /// </summary>
+        /// <param name="loggerName">The logger to set to.</param>
         private void SetLogger(string loggerName)
         {
             if (IsRunning)

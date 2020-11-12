@@ -13,25 +13,47 @@ namespace RezaB.Scheduling
     /// </summary>
     public class SchedulerTask : ISchedulerTask
     {
+        /// <summary>
+        /// Name of the task.
+        /// </summary>
         public string Name { get; protected set; }
-
+        /// <summary>
+        /// Max number of retries.
+        /// </summary>
         public ushort RetryCount { get; protected set; }
-
+        /// <summary>
+        /// The list of following tasks.
+        /// </summary>
         public IEnumerable<SchedulerTask> FollowingTasks { get; protected set; }
-
+        /// <summary>
+        /// If this task is stopped.
+        /// </summary>
         public bool IsStopped { get { return _isStopped; }  protected set { _isStopped = value; } }
-
+        /// <summary>
+        /// If this task is currently running.
+        /// </summary>
         public bool IsRunning { get { return _isRunning; } protected set { _isRunning = value; } }
-
+        /// <summary>
+        /// If following task should only run if this operation completes successfully.
+        /// </summary>
         public bool RunFollowingOnlyOnSuccess { get; protected set; }
-
+        /// <summary>
+        /// Last time the operation completed. (successful or not)
+        /// </summary>
         public DateTime? LastOperationTime { get; protected set; }
 
         protected volatile bool _isStopped;
         protected volatile bool _isRunning;
         protected Thread _internalThread = null;
         protected AbortableTask _operation = null;
-
+        /// <summary>
+        /// Creates a scheduled task to be scheduled after an operation is done.
+        /// </summary>
+        /// <param name="name">Name of the task.</param>
+        /// <param name="operation">The task to run.</param>
+        /// <param name="retryCount">How many retries should this operation do before passing.</param>
+        /// <param name="followingTasks">A list of tasks to be run after this operation is either completed or ran out of retries.</param>
+        /// <param name="runFollowingOnlyOnSuccess">If following task should only run if this operation completes successfully.</param>
         public SchedulerTask(string name, AbortableTask operation, ushort retryCount = 0, IEnumerable<SchedulerTask> followingTasks = null, bool runFollowingOnlyOnSuccess = false)
         {
             if (operation == null)
@@ -45,13 +67,16 @@ namespace RezaB.Scheduling
             _operation = operation;
             RunFollowingOnlyOnSuccess = runFollowingOnlyOnSuccess;
         }
-
+        /// <summary>
+        /// Run the scheduled task.
+        /// </summary>
+        /// <param name="logger">The name of the logger. (NLog)</param>
         public void Run(Logger logger)
         {
             IsStopped = false;
             IsRunning = true;
             LastOperationTime = null;
-            _internalThread = _internalThread ?? new Thread(new ThreadStart(() => internalOperation(logger)));
+            _internalThread = new Thread(new ThreadStart(() => internalOperation(logger)));
             _internalThread.IsBackground = true;
             _internalThread.Name = Name;
             _internalThread.Start();
@@ -105,7 +130,9 @@ namespace RezaB.Scheduling
             IsRunning = false;
             logger.Info("Task done.");
         }
-
+        /// <summary>
+        /// Stops the task if it is running.
+        /// </summary>
         public void Stop()
         {
             IsStopped = true;
@@ -119,7 +146,9 @@ namespace RezaB.Scheduling
             }
             Wait();
         }
-
+        /// <summary>
+        /// Waits for all threads to return.
+        /// </summary>
         public void Wait()
         {
             if (_internalThread != null)

@@ -11,7 +11,7 @@
     <AssemblyName>RezaB.Scheduling</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<PackageDescription>A library for scheduled running tasks.</PackageDescription>
+    <PackageDescription>A library for scheduled running tasks.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/RezaB.Scheduling</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
@@ -59,8 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerOperation.cs" />
     <Compile Include="SchedulerTask.cs" />
+    <Compile Include="StartParameters\SchedulerIntervalTimeSpan.cs" />
+    <Compile Include="StartParameters\SchedulerTimingOptions.cs" />
     <Compile Include="StartParameters\SchedulerWorkingTimeSpan.cs" />
-    <Compile Include="StartParameters\SchedulingType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
