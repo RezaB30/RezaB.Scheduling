@@ -45,7 +45,7 @@ namespace RezaB.Scheduling
             }
             if (TimingOptions.IntervalOption != null)
             {
-                return workingPeriodIsValid && (!LastOperationTime.HasValue || LastOperationTime.Value.Add(TimingOptions.IntervalOption.Interval) >= DateTime.Now); // valid interval
+                return workingPeriodIsValid && (!LastOperationTime.HasValue || LastOperationTime.Value.Add(TimingOptions.IntervalOption.Interval) <= DateTime.Now); // valid interval
             }
             else
             {
