@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerOperation.cs" />
     <Compile Include="SchedulerTask.cs" />
+    <Compile Include="StartParameters\DynamicSchedulerWorkingTimeSpan.cs" />
     <Compile Include="StartParameters\SchedulerIntervalTimeSpan.cs" />
     <Compile Include="StartParameters\SchedulerTimingOptions.cs" />
     <Compile Include="StartParameters\SchedulerWorkingTimeSpan.cs" />

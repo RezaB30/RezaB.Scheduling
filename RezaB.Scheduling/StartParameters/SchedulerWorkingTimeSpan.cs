@@ -14,11 +14,11 @@ namespace RezaB.Scheduling.StartParameters
         /// <summary>
         /// What time of the day should this operation start working.
         /// </summary>
-        public TimeSpan StartTime { get; private set; }
+        public virtual TimeSpan StartTime { get; private set; }
         /// <summary>
         /// What time of the day should this operation stop working.
         /// </summary>
-        public TimeSpan EndTime { get; private set; }
+        public virtual TimeSpan EndTime { get; private set; }
         /// <summary>
         /// Creates an active working hour time span for a scheduled operation.
         /// </summary>
