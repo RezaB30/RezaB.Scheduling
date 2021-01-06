@@ -44,7 +44,7 @@ namespace RezaB.Scheduling.TestUnit
                         })
                     }),
                 }),
-                new SchedulerOperation("SendSMS", new TestTask(12), new StartParameters.SchedulerTimingOptions(new StartParameters.SchedulerWorkingTimeSpan(TimeSpan.FromSeconds(1), TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1)))), 1)
+                new SchedulerOperation("SendSMS", new TestTask(12), new StartParameters.SchedulerTimingOptions(new StartParameters.DynamicSchedulerWorkingTimeSpan(() => new TimeSpan(14,45,10), () => TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1))) /*new StartParameters.SchedulerWorkingTimeSpan(TimeSpan.FromSeconds(1), TimeSpan.FromDays(1).Subtract(TimeSpan.FromSeconds(1)))*/), 1)
             };
         }
     }

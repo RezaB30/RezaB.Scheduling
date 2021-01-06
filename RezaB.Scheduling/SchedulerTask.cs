@@ -98,12 +98,12 @@ namespace RezaB.Scheduling
                         break;
                     }
                     // main task was not done properly
-                    logger.Warn($"Task has not been done properly, will retry {RetryCount} more times.");
+                    logger.Warn($"Task has not been done properly, will retry {RetryCount - i} more times.");
                 }
                 catch (Exception ex)
                 {
                     // exception on main task
-                    logger.Error(ex, $"Task threw an exception, will retry {RetryCount} more times.");
+                    logger.Error(ex, $"Task threw an exception, will retry {RetryCount - i} more times.");
                 }
             }
             // check for only follow on success option
